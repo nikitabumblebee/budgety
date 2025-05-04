@@ -5,6 +5,7 @@
 //  Created by Nikita Shmelev on 04.05.2025.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import SwiftData
 
@@ -25,7 +26,7 @@ struct BudgetyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(store: Store(initialState: ContentFeature.State(), reducer: { ContentFeature() }))
         }
         .modelContainer(sharedModelContainer)
     }
