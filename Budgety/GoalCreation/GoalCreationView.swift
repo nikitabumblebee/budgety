@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct GoalCreationView: View {
-    @Bindable var store: StoreOf<GoalCreationReducer>
+    @Bindable var store: StoreOf<GoalCreationFeature>
 
     var body: some View {
         VStack {
@@ -39,7 +39,7 @@ struct GoalCreationView: View {
 
 #Preview {
     GoalCreationView(store: Store(
-        initialState: GoalCreationReducer.State(goalInfo: GoalInfo(id: UUID(), title: "Abc", color: "#1D4ED8", saved: 50, target: 100)),
-        reducer: { GoalCreationReducer() }
+        initialState: GoalCreationFeature.State(goalInfo: GoalInfo(id: UUID(), title: "Abc", color: "#1D4ED8", saved: 50, target: 100)),
+        reducer: { GoalCreationFeature() }
     ))
 }

@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct GoalsView: View {
-    @Bindable var store: StoreOf<GoalsReducer>
+    @Bindable var store: StoreOf<GoalsFeature>
 
     var body: some View {
         NavigationStackStore(self.store.scope(state: \.path, action: \.path)) {
@@ -78,7 +78,7 @@ struct GoalsView: View {
 #Preview {
     GoalsView(store: Store(
         initialState: mockGoals,
-        reducer: { GoalsReducer() }
+        reducer: { GoalsFeature() }
     ))
 }
 

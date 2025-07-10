@@ -14,9 +14,8 @@ struct MainTabBarReducer {
     struct State: Equatable {
         var path = StackState<MainTabBarPath.State>()
         var selectedTab: Tab = .incomeAndSpendings
-//        var isTabBarHidden = false
         var incomeAndSpendings: IncomeAndSpendingsFeature.State
-        var goals: GoalsReducer.State
+        var goals: GoalsFeature.State
 //        var analytics = AnalyticsReducer.State()
 //        var statistics = StatisticsReducer.State()
 
@@ -41,7 +40,7 @@ struct MainTabBarReducer {
         case path(StackAction<MainTabBarPath.State, MainTabBarPath.Action>)
         case tabSelected(State.Tab)
         case incomeAndSpendings(IncomeAndSpendingsFeature.Action)
-        case goals(GoalsReducer.Action)
+        case goals(GoalsFeature.Action)
 //        case analytics(AnalyticsReducer.Action)
 //        case statistics(StatisticsReducer.Action)
     }
@@ -52,7 +51,7 @@ struct MainTabBarReducer {
         }
 
         Scope(state: \.goals, action: \.goals) {
-            GoalsReducer()
+            GoalsFeature()
         }
 //
 //        Scope(state: \.analytics, action: \.analytics) {
@@ -83,19 +82,19 @@ struct MainTabBarReducer {
 struct MainTabBarPath {
     @CasePathable
     enum State: Equatable {
-        case goalDetails(GoalsReducer.State)
+        case goalDetails(GoalsFeature.State)
         case spendingDetails(IncomeAndSpendingsFeature.State)
     }
 
     @CasePathable
     enum Action: Equatable {
-        case goalDetails(GoalsReducer.Action)
+        case goalDetails(GoalsFeature.Action)
         case spendingDetails(IncomeAndSpendingsFeature.Action)
     }
 
     var body: some ReducerOf<Self> {
         Scope(state: \.goalDetails, action: \.goalDetails) {
-            GoalsReducer()
+            GoalsFeature()
         }
         Scope(state: \.spendingDetails, action: \.spendingDetails) {
             IncomeAndSpendingsFeature()

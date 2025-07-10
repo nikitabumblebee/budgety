@@ -1,5 +1,5 @@
 //
-//  GoalsReducer.swift
+//  GoalsFeature.swift
 //  Budgety
 //
 //  Created by Nikita Shmelev on 08.06.2025.
@@ -9,11 +9,11 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct GoalsReducer {
+struct GoalsFeature {
     @ObservableState
     struct State: Equatable {
         var path = StackState<Path.State>()
-        var goals: [/*GoalCreationReducer.State*/GoalInfo]
+        var goals: [GoalInfo]
     }
 
     enum Action: Equatable {
@@ -26,21 +26,21 @@ struct GoalsReducer {
     struct Path {
         @ObservableState
         enum State: Equatable {
-            case addGoal(GoalCreationReducer.State)
-            case updateGoal(GoalCreationReducer.State)
+            case addGoal(GoalCreationFeature.State)
+            case updateGoal(GoalCreationFeature.State)
         }
 
         enum Action: Equatable {
-            case addGoal(GoalCreationReducer.Action)
-            case updateGoal(GoalCreationReducer.Action)
+            case addGoal(GoalCreationFeature.Action)
+            case updateGoal(GoalCreationFeature.Action)
         }
 
         var body: some ReducerOf<Self> {
             Scope(state: \.addGoal, action: \.addGoal) {
-                GoalCreationReducer()
+                GoalCreationFeature()
             }
             Scope(state: \.updateGoal, action: \.updateGoal) {
-                GoalCreationReducer()
+                GoalCreationFeature()
             }
         }
     }
@@ -49,24 +49,12 @@ struct GoalsReducer {
         Reduce { state, action in
             switch action {
             case .addGoal:
-                state.path.append(.addGoal(GoalCreationReducer.State(goalInfo: GoalInfo(id: UUID(), title: "", color: "#1D4ED8", saved: 0, target: 0))))
-                return .none //.send(.delegate(.setTabBarHidden(true)))
+                state.path.append(.addGoal(GoalCreationFeature.State(goalInfo: GoalInfo(id: UUID(), title: "", color: "#1D4ED8", saved: 0, target: 0))))
+                return .none
 
             case let .updateGoal(goalInfo):
-                state.path.append(.updateGoal(GoalCreationReducer.State(goalInfo: goalInfo)))
-                return .none //.send(.delegate(.setTabBarHidden(true)))
-
-//            case let .path(.element(_, .addGoal(.delegate(.setTabBarHidden(hidden))))),
-//                let .path(.element(_, .updateGoal(.delegate(.setTabBarHidden(hidden))))):
-//                return .send(.delegate(.setTabBarHidden(hidden)))
-
-//            case let .delegate(delegateAction):
-//                switch delegateAction {
-//                case .dismissSelf:
-//                    return .none
-//                case .setTabBarHidden(let hidden):
-//                    return .send(.delegate(.setTabBarHidden(hidden)))
-//                }
+                state.path.append(.updateGoal(GoalCreationFeature.State(goalInfo: goalInfo)))
+                return .none
 
             case .path(.element(_, .addGoal(.delegate(.didSave(let goalInfo))))):
                 state.path.popLast()
@@ -90,7 +78,7 @@ struct GoalsReducer {
     }
 }
 
-let mockGoals = GoalsReducer.State(goals: [
+let mockGoals = GoalsFeature.State(goals: [
     GoalInfo(id: UUID(), title: "Abs", color: "#1D4ED8", saved: 50, target: 100),
     GoalInfo(id: UUID(), title: "Aasd", color: "#FEF9CE", saved: 70, target: 100)
 ])

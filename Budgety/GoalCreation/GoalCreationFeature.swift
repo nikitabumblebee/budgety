@@ -1,5 +1,5 @@
 //
-//  GoalCreationReducer.swift
+//  GoalCreationFeature.swift
 //  Budgety
 //
 //  Created by Nikita Shmelev on 08.06.2025.
@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct GoalCreationReducer {
+struct GoalCreationFeature {
     @ObservableState
     struct State: Equatable {
         var goalInfo: GoalInfo
