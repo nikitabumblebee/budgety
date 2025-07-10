@@ -1,5 +1,5 @@
 //
-//  FinancialOperation.swift
+//  FinancialOperationFeature.swift
 //  Budgety
 //
 //  Created by Nikita Shmelev on 04.05.2025.
@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 
 @Reducer
-struct FinancialOperation {
+struct FinancialOperationFeature {
     @ObservableState
     struct State: Equatable {
         var moneyDeposit: Double = 0
@@ -51,10 +51,10 @@ struct FinancialOperation {
                 let balanceCategory: BalanceCategory
                 switch state.operationType {
                 case .income:
-                    let incomeCategory = IncomeCategory(id: UUID().uuidString, type: state.categoryOperation, amount: state.moneyDeposit, date: state.dateOperation)
+                    let incomeCategory = IncomeTransaction(id: UUID().uuidString, type: state.categoryOperation, amount: state.moneyDeposit, date: state.dateOperation)
                     balanceCategory = .income(incomeCategory)
                 case .spending:
-                    let spendingCategory = SpendingCategory(id: UUID().uuidString, type: state.categoryOperation, amount: state.moneyDeposit, date: state.dateOperation)
+                    let spendingCategory = SpendingTransaction(id: UUID().uuidString, type: state.categoryOperation, amount: state.moneyDeposit, date: state.dateOperation)
                     balanceCategory = .spending(spendingCategory)
                 }
                 return .send(.delegate(.didSave(balanceCategory)))

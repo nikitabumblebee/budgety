@@ -1,37 +1,29 @@
 //
-//  IncomeCategory.swift
+//  Category.swift
 //  Budgety
 //
-//  Created by Nikita Shmelev on 08.06.2025.
+//  Created by Nikita Shmelev on 10.07.2025.
 //
 
 import Foundation
 
-protocol CategoryProtocol: Codable, Equatable, Hashable {
-    var id: String { get }
-    var type: CategoryType { get }
+protocol CategoryProtocol: Equatable, Hashable {
     var amount: Double { get }
-    var date: Date { get }
+    var type: CategoryType { get }
     var name: String { get }
 }
 
 struct IncomeCategory: CategoryProtocol {
-    let id: String
-    let type: CategoryType
-    let amount: Double
-    let date: Date
-
+    var amount: Double
+    var type: CategoryType
     var name: String {
         type.name
     }
 }
 
 struct SpendingCategory: CategoryProtocol {
-    let id: String
-    let type: CategoryType
-    let amount: Double
-    let date: Date
-
+    var amount: Double
+    var type: CategoryType
     var name: String {
         type.name
     }
@@ -86,46 +78,6 @@ struct SpendingCategory: CategoryProtocol {
             case .other:
                 "#852DD1"
             }
-        }
-    }
-}
-
-enum BalanceCategory: Equatable, Codable, Hashable {
-    case income(IncomeCategory)
-    case spending(SpendingCategory)
-
-    var id: String {
-        switch self {
-        case .income(let income): return income.id
-        case .spending(let spending): return spending.id
-        }
-    }
-
-    var name: String {
-        switch self {
-        case .income(let income): return income.name
-        case .spending(let spending): return spending.name
-        }
-    }
-
-    var amount: Double {
-        switch self {
-        case .income(let income): return income.amount
-        case .spending(let spending): return spending.amount
-        }
-    }
-
-    var date: Date {
-        switch self {
-        case .income(let income): return income.date
-        case .spending(let spending): return spending.date
-        }
-    }
-
-    var type: CategoryType {
-        switch self {
-        case .income(let income): return income.type
-        case .spending(let spending): return spending.type
         }
     }
 }

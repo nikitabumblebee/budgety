@@ -13,8 +13,8 @@ struct MonthHistory: Codable, Equatable {
     }
 
     let month: Date
-    let incomeCategories: [IncomeCategory]
-    let spendingCategories: [SpendingCategory]
+    let incomeCategories: [IncomeTransaction]
+    let spendingCategories: [SpendingTransaction]
 
     var income: Double {
         incomeCategories.reduce(0) { $0 + $1.amount }

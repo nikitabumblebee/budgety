@@ -25,15 +25,20 @@ struct IncomeAndSpendingsView: View {
                                 Button {
                                     viewStore.send(.addIncome)
                                 } label: {
-                                    HStack {
-                                        Image(systemName: "plus")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                        Text("Income")
-                                            .font(.system(size: 26, weight: .semibold))
-                                    }
+                                    Text("Income")
+                                        .font(.system(size: 26, weight: .semibold))
                                 }
+
                                 Spacer()
+
+                                Button {
+                                    viewStore.send(.addIncome)
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                                .padding(4)
+                                .background(Color.green.opacity(0.2))
+                                .clipShape(Circle())
                             }
                             .foregroundStyle(Color(red: 0.086, green: 0.503, blue: 0.242))
                             .padding(.vertical)
@@ -64,15 +69,20 @@ struct IncomeAndSpendingsView: View {
                                 Button {
                                     viewStore.send(.addSpending)
                                 } label: {
-                                    HStack {
-                                        Image(systemName: "plus")
-                                            .resizable()
-                                            .frame(width: 20, height: 20)
-                                        Text("Spendings")
-                                            .font(.system(size: 26, weight: .semibold))
-                                    }
+                                    Text("Spendings")
+                                        .font(.system(size: 26, weight: .semibold))
                                 }
+
                                 Spacer()
+
+                                Button {
+                                    viewStore.send(.addSpending)
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                                .padding(4)
+                                .background(Color.red.opacity(0.2))
+                                .clipShape(Circle())
                             }
                             .foregroundStyle(Color.red)
                             .padding(.vertical)
@@ -219,7 +229,7 @@ struct SpendingCategoriesView: View {
 
     var body: some View {
         LazyVGrid(columns: columns) {
-            ForEach(spendingCategories, id: \.self) { tag in
+            ForEach(spendingCategories.uniques(by: \.type), id: \.self) { tag in
                 SpendingCard(amount: tag.amount, label: tag.name, color: Color(hex: tag.color), textColor: Color(hex: tag.textColor))
             }
         }

@@ -13,11 +13,8 @@ struct FinancialOperationView: View {
         static let textWidth: CGFloat = 90
     }
 
-    @Bindable var store: StoreOf<FinancialOperation>
+    @Bindable var store: StoreOf<FinancialOperationFeature>
 
-//    @State private var selectedTheme = "Dark"
-//    let themes = ["Dark", "Light", "Automatic"]
-    @State private var birthDate = Date.now
     @FocusState private var isFocused: Bool
 
     private let formatter: NumberFormatter = {
@@ -66,7 +63,7 @@ struct FinancialOperationView: View {
             HStack {
                 Text("Date:")
                     .frame(width: Constants.textWidth, alignment: .leading)
-                DatePicker("Date:", selection: $birthDate, displayedComponents: .date)
+                DatePicker("Date:", selection: $store.dateOperation, displayedComponents: .date)
                     .labelsHidden()
                     .datePickerStyle(.compact)
                 Spacer()
@@ -100,8 +97,8 @@ struct FinancialOperationView: View {
 #Preview {
     FinancialOperationView(
         store: Store(
-            initialState: FinancialOperation.State(operationType: .income),
-            reducer: { FinancialOperation() }
+            initialState: FinancialOperationFeature.State(operationType: .income),
+            reducer: { FinancialOperationFeature() }
         )
     )
 }

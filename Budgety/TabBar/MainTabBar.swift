@@ -104,44 +104,44 @@ struct MainTabBarPath {
 }
 
 let mockIncomeAndSpendings = IncomeAndSpendingsFeature.State(
-    incomeCategories: [
-        IncomeCategory(id: UUID().uuidString, type: .income(.salary), amount: 5000, date: Date())
+    incomeTransactions: [
+        IncomeTransaction(id: UUID().uuidString, type: .income(.salary), amount: 5000, date: Date())
     ],
-    spendingCategories: [
-        SpendingCategory(id: UUID().uuidString, type: .spending(.food), amount: 420, date: Date()),
-        SpendingCategory(id: UUID().uuidString, type: .spending(.transport), amount: 100, date: Date()),
-        SpendingCategory(id: UUID().uuidString, type: .spending(.entertainment), amount: 43, date: Date()),
-        SpendingCategory(id: UUID().uuidString, type: .spending(.shopping), amount: 180, date: Date())
+    spendingTransactions: [
+        SpendingTransaction(id: UUID().uuidString, type: .spending(.food), amount: 420, date: Date()),
+        SpendingTransaction(id: UUID().uuidString, type: .spending(.transport), amount: 100, date: Date()),
+        SpendingTransaction(id: UUID().uuidString, type: .spending(.entertainment), amount: 43, date: Date()),
+        SpendingTransaction(id: UUID().uuidString, type: .spending(.shopping), amount: 180, date: Date())
     ],
     monthHistory: [
         MonthHistory(
             month: Date(),
             incomeCategories: [
-                IncomeCategory(id: UUID().uuidString, type: .income(.salary), amount: 5000, date: Date())
+                IncomeTransaction(id: UUID().uuidString, type: .income(.salary), amount: 5000, date: Date())
             ],
             spendingCategories: [
-                SpendingCategory(id: UUID().uuidString, type: .spending(.food), amount: 250, date: Date()),
-                SpendingCategory(id: UUID().uuidString, type: .spending(.transport), amount: 125, date: Date())
+                SpendingTransaction(id: UUID().uuidString, type: .spending(.food), amount: 250, date: Date()),
+                SpendingTransaction(id: UUID().uuidString, type: .spending(.transport), amount: 125, date: Date())
             ]
         ),
         MonthHistory(
             month: Date(),
             incomeCategories: [
-                IncomeCategory(id: UUID().uuidString, type: .income(.salary), amount: 6000, date: Date())
+                IncomeTransaction(id: UUID().uuidString, type: .income(.salary), amount: 6000, date: Date())
             ],
             spendingCategories: [
-                SpendingCategory(id: UUID().uuidString, type: .spending(.food), amount: 350, date: Date()),
-                SpendingCategory(id: UUID().uuidString, type: .spending(.transport), amount: 225, date: Date())
+                SpendingTransaction(id: UUID().uuidString, type: .spending(.food), amount: 350, date: Date()),
+                SpendingTransaction(id: UUID().uuidString, type: .spending(.transport), amount: 225, date: Date())
             ]
         ),
         MonthHistory(
             month: Date(),
             incomeCategories: [
-                IncomeCategory(id: UUID().uuidString, type: .income(.salary), amount: 7000, date: Date())
+                IncomeTransaction(id: UUID().uuidString, type: .income(.salary), amount: 7000, date: Date())
             ],
             spendingCategories: [
-                SpendingCategory(id: UUID().uuidString, type: .spending(.food), amount: 450, date: Date()),
-                SpendingCategory(id: UUID().uuidString, type: .spending(.transport), amount: 325, date: Date())
+                SpendingTransaction(id: UUID().uuidString, type: .spending(.food), amount: 450, date: Date()),
+                SpendingTransaction(id: UUID().uuidString, type: .spending(.transport), amount: 325, date: Date())
             ]
         )
     ]
