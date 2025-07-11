@@ -23,7 +23,7 @@ struct FinancialOperationView: View {
         formatter.maximumFractionDigits = 2
         return formatter
     }()
-    
+
     private func buttonBackgroundColor(_ operationType: OperationType) -> Color {
         switch operationType {
         case .income:

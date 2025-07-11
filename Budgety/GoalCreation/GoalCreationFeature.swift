@@ -13,12 +13,10 @@ struct GoalCreationFeature {
     @ObservableState
     struct State: Equatable {
         var goalInfo: GoalInfo
-        var title: String
         var isNew: Bool
 
         init(goalInfo: GoalInfo) {
             self.goalInfo = goalInfo
-            self.title = goalInfo.title
             isNew = goalInfo.title.isEmpty
         }
     }
@@ -39,11 +37,18 @@ struct GoalCreationFeature {
         Reduce { state, action in
             switch action {
             case .save:
-                state.goalInfo.title = state.title
                 return .send(.delegate(.didSave(state.goalInfo)))
 
-            case .binding(\.title):
-                state.goalInfo.title = state.title
+            case .binding(\.goalInfo.title):
+                return .none
+
+            case .binding(\.goalInfo.current):
+                return .none
+
+            case .binding(\.goalInfo.target):
+                return .none
+
+            case .binding(\.goalInfo.color):
                 return .none
 
             default:

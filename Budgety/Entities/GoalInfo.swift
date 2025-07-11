@@ -15,14 +15,14 @@ struct GoalInfo: Codable, Identifiable, Equatable {
     let id: UUID
     var title: String
     var color: String
-    var saved: Double
+    var current: Double
     var target: Double
 
     var progress: Double {
-        target == 0 ? 0 : saved / target
+        target == 0 ? 0 : current / target
     }
 
     var formattedProgress: String {
-        "Saved: $\(Int(saved)) / $\(Int(target))"
+        "Saved: $\(Int(current)) / $\(Int(target))"
     }
 }

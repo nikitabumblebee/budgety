@@ -49,7 +49,7 @@ struct GoalsFeature {
         Reduce { state, action in
             switch action {
             case .addGoal:
-                state.path.append(.addGoal(GoalCreationFeature.State(goalInfo: GoalInfo(id: UUID(), title: "", color: "#1D4ED8", saved: 0, target: 0))))
+                state.path.append(.addGoal(GoalCreationFeature.State(goalInfo: GoalInfo(id: UUID(), title: "", color: "#1D4ED8", current: 0, target: 0))))
                 return .none
 
             case let .updateGoal(goalInfo):
@@ -79,6 +79,6 @@ struct GoalsFeature {
 }
 
 let mockGoals = GoalsFeature.State(goals: [
-    GoalInfo(id: UUID(), title: "Abs", color: "#1D4ED8", saved: 50, target: 100),
-    GoalInfo(id: UUID(), title: "Aasd", color: "#FEF9CE", saved: 70, target: 100)
+    GoalInfo(id: UUID(), title: "Abs", color: "#1D4ED8", current: 50, target: 100),
+    GoalInfo(id: UUID(), title: "Aasd", color: "#FEF9CE", current: 70, target: 100)
 ])

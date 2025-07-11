@@ -107,7 +107,7 @@ struct IncomeAndSpendingsView: View {
                                         }
                                     }
                                 }
-                                .padding(.top)
+                                .padding(.vertical)
                             }
                         }
                         .padding(.horizontal, 16)

@@ -17,29 +17,12 @@ struct GoalsView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(viewStore.goals, id: \.id) { goal in
-                            Button {
-                                viewStore.send(.updateGoal(goal))
-                            } label: {
-                                VStack(alignment: .leading, spacing: 8) {
-                                    HStack {
-                                        Text(goal.title)
-                                            .fontWeight(.semibold)
-                                            .tint(.black)
-                                            .font(.title2)
-                                        Spacer()
-                                        Text(goal.formattedProgress)
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding(.vertical, 4)
-                                    LinearProgressView(
-                                        value: goal.progress,
-                                        shape: Capsule(),
-                                        progressColor: Color(hex: goal.color)
-                                    )
-                                }
-                                .padding(.vertical, 6)
-                            }
+                            GoalProgressView(
+                                onButtonTap: {
+                                    viewStore.send(.updateGoal(goal))
+                                },
+                                goal: goal
+                            )
                         }
 
                         Spacer()
@@ -82,11 +65,48 @@ struct GoalsView: View {
     ))
 }
 
+struct GoalProgressView: View {
+    var onButtonTap: () -> Void
+    let goal: GoalInfo
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 12) {
+                Text(goal.title)
+                    .fontWeight(.semibold)
+                    .tint(.black)
+                    .font(.title2)
+
+                Button {
+                    onButtonTap()
+                } label: {
+                    Image(systemName: "pencil")
+                        .tint(.black)
+                }
+
+                Spacer()
+
+                Text(goal.formattedProgress)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            .padding(.vertical, 4)
+
+            LinearProgressView(
+                value: goal.progress,
+                shape: Capsule(),
+                progressColor: Color(hex: goal.color)
+            )
+        }
+        .padding(.vertical, 6)
+    }
+}
+
 struct LinearProgressView<Shape: SwiftUI.Shape>: View {
     var value: Double
     var shape: Shape
     var progressColor: Color
-    
+
     var body: some View {
         shape.fill(Color.gray.opacity(0.3))
             .frame(height: 15)
