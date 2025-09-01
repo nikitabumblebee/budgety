@@ -45,6 +45,7 @@ struct IncomeAndSpendingsFeature {
         case path(StackAction<Path.State, Path.Action>)
         case addIncome
         case addSpending
+        case seeAllMonthsDetails
     }
 
     @Reducer
@@ -53,11 +54,13 @@ struct IncomeAndSpendingsFeature {
         enum State: Equatable {
             case addIncome(FinancialOperationFeature.State)
             case addSpendings(FinancialOperationFeature.State)
+            case seeAllMonthsDetails(AllMonthsHistoryFeature.State)
         }
 
         enum Action: Equatable {
             case addIncome(FinancialOperationFeature.Action)
             case addSpendings(FinancialOperationFeature.Action)
+            case seeAllMonthsDetails(AllMonthsHistoryFeature.Action)
         }
 
         var body: some ReducerOf<Self> {
@@ -66,6 +69,9 @@ struct IncomeAndSpendingsFeature {
             }
             Scope(state: \.addSpendings, action: \.addSpendings) {
                 FinancialOperationFeature()
+            }
+            Scope(state: \.seeAllMonthsDetails, action: \.seeAllMonthsDetails) {
+                AllMonthsHistoryFeature()
             }
         }
     }
@@ -113,6 +119,10 @@ struct IncomeAndSpendingsFeature {
                 default: break
                 }
                 state.path.popLast()
+                return .none
+
+            case .seeAllMonthsDetails:
+                state.path.append(.seeAllMonthsDetails(AllMonthsHistoryFeature.State()))
                 return .none
 
             case .path:

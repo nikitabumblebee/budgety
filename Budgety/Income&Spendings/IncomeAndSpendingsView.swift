@@ -98,12 +98,24 @@ struct IncomeAndSpendingsView: View {
 
                             if !viewStore.monthHistory.isEmpty {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Text("History by Month")
-                                        .font(.system(size: 26, weight: .semibold))
+                                    HStack {
+                                        Text("History by Month")
+                                            .font(.system(size: 26, weight: .semibold))
+
+                                        Spacer()
+
+                                        Button {
+                                            viewStore.send(.seeAllMonthsDetails)
+                                        } label: {
+                                            Text("See All")
+                                                .font(.system(size: 14, weight: .semibold))
+                                                .foregroundColor(.black)
+                                        }
+                                    }
 
                                     ForEach(viewStore.monthHistory.prefix(3), id: \.month) { item in
                                         HistoryRow(monthHistory: item) {
-                                            
+                                            // TODO: Navigate to month description view
                                         }
                                     }
                                 }
@@ -124,6 +136,10 @@ struct IncomeAndSpendingsView: View {
             case .addSpendings:
                 if let spendingStore = store.scope(state: \.addSpendings, action: \.addSpendings) {
                     FinancialOperationView(store: spendingStore)
+                }
+            case .seeAllMonthsDetails:
+                if let allMonthsStore = store.scope(state: \.seeAllMonthsDetails, action: \.seeAllMonthsDetails) {
+                    AllMonthsHistoryView(store: allMonthsStore)
                 }
             }
         }
@@ -208,7 +224,7 @@ struct HistoryRow: View {
 
                 Spacer()
 
-                Text("-\(monthHistory.spendings.decimalRepresentation)")
+                Text("-$\(monthHistory.spendings.decimalRepresentation)")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.red)
             }
