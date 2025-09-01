@@ -16,8 +16,23 @@ struct SignInView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack {
                 VStack {
-                    Text("Hello, World!")
+                    Image("splash-screen")
+
+                    VStack(spacing: 22) {
+                        Text("Save smart\nSpend wisely")
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                        Text("Balance today’s needs with tomorrow’s goals")
+                            .multilineTextAlignment(.center)
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
+                    .padding()
+
                     Spacer()
+
                     SignInWithAppleButton { request in
                         request.requestedScopes = [.fullName, .email]
                     } onCompletion: { result in
@@ -36,6 +51,7 @@ struct SignInView: View {
                     .clipShape(.capsule)
                 }
                 .padding()
+                .background(Color(hex: "#59E15C"))
             }
         }
     }
