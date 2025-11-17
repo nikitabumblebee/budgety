@@ -1,1 +1,2 @@
 # budgety
+Stack: TCA, SwiftUI
